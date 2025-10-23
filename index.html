@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowLearn - AI 맞춤형 학습 플랫폼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E3A8A;
+            --secondary-blue: #3B82F6;
+            --accent-orange: #FF6B6B;
+            --success-green: #10B981;
+            --bg-gray: #F3F4F6;
+            --text-dark: #1F2937;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header/Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary-blue);
+        }
+
+        .cta-header {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary-blue);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-blue);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(30,58,138,0.9) 0%, rgba(59,130,246,0.9) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231E3A8A" width="1200" height="800"/></svg>');
+            background-size: cover;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.85;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero .btn-primary {
+            font-size: 1.25rem;
+            padding: 1rem 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .bg-gray {
+            background: var(--bg-gray);
+        }
+
+        /* Trust Indicators */
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--secondary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        /* Value Props */
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59,130,246,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .value-card p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        /* Process Timeline */
+        .process-timeline {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -2rem;
+            top: 50px;
+            font-size: 2rem;
+            color: var(--secondary-blue);
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-blue);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 1.5rem;
+        }
+
+        .process-step h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .process-step p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        /* Course Cards */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .course-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+        }
+
+        .course-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--white);
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-badge {
+            display: inline-block;
+            background: var(--accent-orange);
+            color: var(--white);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .course-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--primary-blue);
+        }
+
+        .course-card p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .course-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--bg-gray);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--bg-gray);
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent-orange);
+        }
+
+        .course-rating {
+            font-size: 0.95rem;
+        }
+
+        /* Success Stories */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .story-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .story-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-gray);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .story-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+
+        .story-transition {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .story-arrow {
+            color: var(--secondary-blue);
+            font-weight: 900;
+        }
+
+        .story-quote {
+            font-style: italic;
+            color: var(--text-dark);
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        /* Partner Logos */
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            opacity: 0.6;
+        }
+
+        .partner-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            background: var(--bg-gray);
+            border-radius: 8px;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 700;
+            font-size: 1.125rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--primary-blue);
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-gray);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            display: none;
+            color: var(--text-dark);
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 12px;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            opacity: 0.7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .process-timeline {
+                flex-direction: column;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            .countdown {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">FlowLearn</div>
+            <ul class="nav-menu">
+                <li><a href="#programs">프로그램</a></li>
+                <li><a href="#process">학습 과정</a></li>
+                <li><a href="#success">성공 사례</a></li>
+                <li><a href="#pricing">요금제</a></li>
+            </ul>
+            <div class="cta-header">
+                <button class="btn-primary">1:1 상담 신청</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>당신의 속도로, 당신만의 길을</h1>
+            <h2>AI가 설계하는 가장 효율적인 학습 여정</h2>
+            <p>하루 30분, 3개월이면 충분합니다. 이직 성공률 87%의 비밀을 경험하세요.</p>
+            <div class="hero-cta">
+                <button class="btn-primary">7일 무료로 시작하기</button>
+                <button class="btn-secondary">내 학습 경로 미리보기</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="bg-gray">
+        <h2 class="section-title">숫자로 증명된 성과</h2>
+        <p class="section-subtitle">12,000명의 직장인이 선택한 가장 확실한 변화</p>
+        <div class="trust-stats">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">12,000+</div>
+                <div class="stat-label">누적 수강생</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number">94%</div>
+                <div class="stat-label">평균 학습 완료율</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number">87%</div>
+                <div class="stat-label">이직 성공률</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section>
+        <h2 class="section-title">왜 FlowLearn이 다른가요?</h2>
+        <p class="section-subtitle">당신의 시간을 아끼는 4가지 차별점</p>
+        <div class="value-grid">
+            <div class="value-card">
+                <div class="value-icon">🧠</div>
+                <h3>AI가 만드는 나만의 로드맵</h3>
+                <p>입문부터 실전까지, AI가 당신의 수준과 목표를 분석해 최적화된 학습 경로를 자동으로 설계합니다. 불필요한 시간 낭비는 이제 그만.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">📁</div>
+                <h3>이론이 아닌, 포트폴리오</h3>
+                <p>실제 기업 프로젝트 사례로 학습하고, 취업에 바로 쓸 수 있는 결과물을 만듭니다. 배운 즉시 실무에 적용하세요.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💬</div>
+                <h3>현직 전문가의 1:1 코칭</h3>
+                <p>삼성, 네이버, 카카오 출신 현직 개발자가 코드 리뷰부터 커리어 상담까지, 당신의 성장을 직접 책임집니다.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">⏰</div>
+                <h3>출퇴근 시간, 10분이면 충분</h3>
+                <p>짧은 모듈 단위로 구성되어 언제 어디서나 학습 가능. 바쁜 직장인을 위한 24시간 열린 교실입니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Process -->
+    <section id="process" class="bg-gray">
+        <h2 class="section-title">4단계로 완성되는 당신의 커리어 전환</h2>
+        <p class="section-subtitle">시작부터 취업까지, FlowLearn이 함께합니다</p>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="process-number">01</div>
+                <h3>AI 레벨 테스트</h3>
+                <p>5분 진단으로 현재 실력과 목표를 분석합니다</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">02</div>
+                <h3>맞춤 학습 경로 생성</h3>
+                <p>AI가 당신만의 커리큘럼을 자동 설계합니다</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">03</div>
+                <h3>프로젝트 기반 학습</h3>
+                <p>실무 프로젝트를 만들며 전문가에게 1:1 피드백을 받습니다</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">04</div>
+                <h3>취업 지원</h3>
+                <p>이력서 첨삭부터 모의 면접까지, 합격을 책임집니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Programs -->
+    <section id="programs">
+        <h2 class="section-title">지금 가장 인기 있는 코스</h2>
+        <p class="section-subtitle">12,000명이 선택한 베스트 프로그램</p>
+        <div class="course-grid">
+            <div class="course-card">
+                <div class="course-thumbnail">💻</div>
+                <div class="course-content">
+                    <span class="course-badge">프로그래밍</span>
+                    <h3>풀스택 개발자 마스터 과정</h3>
+                    <p>React + Node.js로 서비스 출시까지, 3개월 완성</p>
+                    <div class="course-tags">
+                        <span class="tag">#비전공자환영</span>
+                        <span class="tag">#포트폴리오5개</span>
+                        <span class="tag">#취업연계</span>
+                    </div>
+                    <div class="course-meta">
+                        <span class="course-price">월 99,000원</span>
+                        <span class="course-rating">⭐ 4.8 (324개)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-thumbnail">📊</div>
+                <div class="course-content">
+                    <span class="course-badge">데이터</span>
+                    <h3>데이터 분석가 실전 부트캠프</h3>
+                    <p>Python + SQL + Tableau로 데이터 스토리텔링 완성</p>
+                    <div class="course-tags">
+                        <span class="tag">#엑셀만알아도OK</span>
+                        <span class="tag">#실무데이터</span>
+                        <span class="tag">#대시보드</span>
+                    </div>
+                    <div class="course-meta">
+                        <span class="course-price">월 99,000원</span>
+                        <span class="course-rating">⭐ 4.9 (412개)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="course-card">
+                <div class="course-thumbnail">🤖</div>
+                <div class="course-content">
+                    <span class="course-badge">AI/ML</span>
+                    <h3>AI 엔지니어 커리어 전환 과정</h3>
+                    <p>PyTorch로 시작하는 딥러닝 실전, 프로젝트 중심</p>
+                    <div class="course-tags">
+                        <span class="tag">#개발자대상</span>
+                        <span class="tag">#논문구현</span>
+                        <span class="tag">#Kaggle</span>
+                    </div>
+                    <div class="course-meta">
+                        <span class="course-price">월 149,000원</span>
+                        <span class="course-rating">⭐ 4.7 (198개)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section id="success" class="bg-gray">
+        <h2 class="section-title">FlowLearn과 함께 성장한 사람들</h2>
+        <p class="section-subtitle">실제 수강생의 생생한 커리어 전환 스토리</p>
+        <div class="story-grid">
+            <div class="story-card">
+                <div class="story-avatar">👨‍💼</div>
+                <div class="story-name">김민수 (32세)</div>
+                <div class="story-transition">
+                    마케터 5년차 <span class="story-arrow">→</span> 풀스택 개발자
+                </div>
+                <p><strong>네이버 입사 성공</strong></p>
+                <p class="story-quote">"비전공자도 할 수 있다는 걸 증명했습니다. 멘토님의 코드 리뷰가 실력 향상의 핵심이었어요."</p>
+            </div>
+            <div class="story-card">
+                <div class="story-avatar">👩‍💼</div>
+                <div class="story-name">박지은 (28세)</div>
+                <div class="story-transition">
+                    영업직 3년차 <span class="story-arrow">→</span> 데이터 분석가
+                </div>
+                <p><strong>쿠팡 입사 성공</strong></p>
+                <p class="story-quote">"엑셀만 다룰 줄 알았는데, 이제 SQL과 Python으로 인사이트를 뽑아냅니다. 연봉 40% 올랐어요!"</p>
+            </div>
+            <div class="story-card">
+                <div class="story-avatar">👨‍💻</div>
+                <div class="story-name">이준호 (35세)</div>
+                <div class="story-transition">
+                    주니어 개발자 <span class="story-arrow">→</span> 시니어 AI 엔지니어
+                </div>
+                <p><strong>카카오브레인 입사</strong></p>
+                <p class="story-quote">"독학으로 한계를 느꼈는데, 체계적인 커리큘럼과 프로젝트 경험이 게임 체인저였습니다."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Companies -->
+    <section>
+        <h2 class="section-title">FlowLearn 수강생을 환영하는 기업들</h2>
+        <p class="section-subtitle">채용 연계 파트너사</p>
+        <div class="partner-logos">
+            <div class="partner-logo">NAVER</div>
+            <div class="partner-logo">Kakao</div>
+            <div class="partner-logo">Coupang</div>
+            <div class="partner-logo">TOSS</div>
+            <div class="partner-logo">배민</div>
+            <div class="partner-logo">당근마켓</div>
+            <div class="partner-logo">삼성전자</div>
+            <div class="partner-logo">LG전자</div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="bg-gray">
+        <h2 class="section-title">자주 묻는 질문</h2>
+        <p class="section-subtitle">궁금한 점을 빠르게 해결하세요</p>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    비전공자도 정말 가능한가요?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    네! 전체 수강생의 68%가 비전공자입니다. AI가 당신의 수준에 맞춰 커리큘럼을 조정하고, 기초부터 차근차근 시작합니다. 걱정 마세요.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    하루에 몇 시간 학습해야 하나요?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    최소 하루 30분만 투자해도 충분합니다. 짧은 모듈로 구성되어 출퇴근 시간이나 점심시간에도 학습 가능합니다. 주말에 집중 학습도 OK!
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    환불이 가능한가요?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    7일 무료 체험 기간 내에는 100% 환불 가능합니다. 이후에도 첫 달 내 콘텐츠 30% 미만 수강 시 부분 환불됩니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    멘토링은 어떻게 진행되나요?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Zoom 또는 Google Meet으로 1:1 또는 소그룹(4-6명) 세션이 진행됩니다. 일정은 멘토와 협의하여 유연하게 조정 가능합니다.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    수료 후 취업 지원은 어떻게 받나요?
+                    <span class="faq-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Premium 요금제 이용 시 이력서 첨삭, 포트폴리오 코칭, 모의 면접, 파트너 기업 채용 공고 우선 추천을 받을 수 있습니다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>지금 시작하면 첫 달 50% 할인</h2>
+        <p>남은 시간 내에 등록하고 49,500원에 시작하세요</p>
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">23</span>
+                <span class="countdown-label">시간</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">45</span>
+                <span class="countdown-label">분</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">12</span>
+                <span class="countdown-label">초</span>
+            </div>
+        </div>
+        <button class="btn-primary" style="font-size: 1.5rem; padding: 1.25rem 3rem;">지금 7일 무료 체험 시작하기</button>
+        <p style="margin-top: 1.5rem; font-size: 0.95rem;">✓ 신용카드 등록 불필요 &nbsp;&nbsp; ✓ 언제든 취소 가능</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>FlowLearn</h3>
+                <p>AI 맞춤형 학습 플랫폼</p>
+                <p style="margin-top: 1rem; opacity: 0.7;">당신의 속도로, 당신만의 길을</p>
+            </div>
+            <div class="footer-section">
+                <h3>서비스</h3>
+                <ul>
+                    <li><a href="#programs">프로그램</a></li>
+                    <li><a href="#process">학습 과정</a></li>
+                    <li><a href="#success">성공 사례</a></li>
+                    <li><a href="#pricing">요금제</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>고객지원</h3>
+                <ul>
+                    <li><a href="#">1:1 상담 신청</a></li>
+                    <li><a href="#">자주 묻는 질문</a></li>
+                    <li><a href="#">환불 정책</a></li>
+                    <li><a href="#">제휴 문의</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>회사 정보</h3>
+                <p>FlowLearn (주)</p>
+                <p>서울특별시 강남구 테헤란로 123</p>
+                <p>사업자등록번호: 123-45-67890</p>
+                <p>이메일: support@flowlearn.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FlowLearn. All rights reserved. | 이용약관 | 개인정보처리방침</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const wasActive = item.classList.contains('active');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!wasActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(24, 0, 0, 0);
+            
+            const diff = midnight - now;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Number Counter Animation (on scroll)
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value.toLocaleString() + (element.dataset.suffix || '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    const numbers = entry.target.querySelectorAll('.stat-number');
+                    numbers.forEach(number => {
+                        const text = number.textContent;
+                        const isPercentage = text.includes('%');
+                        const value = parseInt(text.replace(/[^\d]/g, ''));
+                        number.dataset.suffix = isPercentage ? '%' : '+';
+                        animateValue(number, 0, value, 2000);
+                    });
+                    entry.target.dataset.animated = 'true';
+                }
+            });
+        }, observerOptions);
+
+        const statsSection = document.querySelector('.trust-stats').parentElement;
+        observer.observe(statsSection);
+    </script>
+</body>
+</html>
